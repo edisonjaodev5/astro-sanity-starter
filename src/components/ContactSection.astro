@@ -1,0 +1,364 @@
+---
+import Section from '@components/Section.astro';
+
+interface Props {
+  heading?: string;
+  body?: string;
+  'data-sb-field-path'?: string;
+}
+
+const { heading, body, ...rest } = Astro.props;
+---
+
+<Section {...rest}>
+  <div class="contact-wrapper">
+    {heading && (
+      <h2 class="text-2xl font-black sm:text-4xl text-balance text-center mb-4">
+        {heading}
+      </h2>
+    )}
+    {body && (
+      <p class="text-center max-w-2xl mx-auto mb-10 opacity-80">{body}</p>
+    )}
+
+    <!-- TABS -->
+    <div class="tabs-container">
+      <div class="tab-buttons" role="tablist">
+        <button
+          class="tab-btn active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-empresa"
+          data-tab="empresa"
+        >
+          🏢 Empresa
+        </button>
+        <button
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-persona"
+          data-tab="persona"
+        >
+          👤 Persona Natural
+        </button>
+      </div>
+
+      <!-- FORM EMPRESA -->
+      <div id="tab-empresa" class="tab-panel active" role="tabpanel">
+        <form class="contact-form" id="form-empresa" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="emp-razon">Razón Social *</label>
+              <input type="text" id="emp-razon" name="razonSocial" placeholder="Empresa S.A." required />
+            </div>
+            <div class="field">
+              <label for="emp-rut">RUT Empresa *</label>
+              <input type="text" id="emp-rut" name="rutEmpresa" placeholder="76.123.456-7" required />
+            </div>
+            <div class="field">
+              <label for="emp-nombre">Nombre Contacto *</label>
+              <input type="text" id="emp-nombre" name="nombreContacto" placeholder="Juan Pérez" required />
+            </div>
+            <div class="field">
+              <label for="emp-cargo">Cargo</label>
+              <input type="text" id="emp-cargo" name="cargo" placeholder="Gerente General" />
+            </div>
+            <div class="field">
+              <label for="emp-email">Email *</label>
+              <input type="email" id="emp-email" name="email" placeholder="contacto@empresa.cl" required />
+            </div>
+            <div class="field">
+              <label for="emp-tel">Teléfono</label>
+              <input type="tel" id="emp-tel" name="telefono" placeholder="+56 9 1234 5678" />
+            </div>
+            <div class="field full">
+              <label for="emp-giro">Giro / Actividad Económica *</label>
+              <input type="text" id="emp-giro" name="giro" placeholder="Construcción, Retail, Servicios..." required />
+            </div>
+            <div class="field full">
+              <label for="emp-servicio">Servicio que necesitas *</label>
+              <select id="emp-servicio" name="servicio" required>
+                <option value="" disabled selected>Selecciona un servicio</option>
+                <option value="contabilidad">Contabilidad General</option>
+                <option value="tributaria">Asesoría Tributaria</option>
+                <option value="remuneraciones">Remuneraciones</option>
+                <option value="auditoria">Auditoría</option>
+                <option value="constitucion">Constitución de Empresa</option>
+                <option value="finanzas">Finanzas para Pymes</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="emp-mensaje">Mensaje o consulta</label>
+              <textarea id="emp-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos brevemente tu situación actual..." />
+            </div>
+          </div>
+          <div class="form-footer">
+            <span class="form-note">* Campos obligatorios</span>
+            <button type="submit" class="btn-submit">
+              <span class="btn-text">Enviar solicitud</span>
+              <span class="btn-loading hidden">Enviando...</span>
+            </button>
+          </div>
+          <div class="form-success hidden">
+            ✅ ¡Mensaje enviado! Te contactaremos en menos de 24 horas.
+          </div>
+          <div class="form-error hidden">
+            ❌ Hubo un error al enviar. Intenta nuevamente o escríbenos por WhatsApp.
+          </div>
+        </form>
+      </div>
+
+      <!-- FORM PERSONA NATURAL -->
+      <div id="tab-persona" class="tab-panel" role="tabpanel">
+        <form class="contact-form" id="form-persona" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="per-nombre">Nombre completo *</label>
+              <input type="text" id="per-nombre" name="nombre" placeholder="María González" required />
+            </div>
+            <div class="field">
+              <label for="per-rut">RUT *</label>
+              <input type="text" id="per-rut" name="rut" placeholder="12.345.678-9" required />
+            </div>
+            <div class="field">
+              <label for="per-email">Email *</label>
+              <input type="email" id="per-email" name="email" placeholder="maria@gmail.com" required />
+            </div>
+            <div class="field">
+              <label for="per-tel">Teléfono *</label>
+              <input type="tel" id="per-tel" name="telefono" placeholder="+56 9 1234 5678" required />
+            </div>
+            <div class="field full">
+              <label for="per-situacion">¿Cuál es tu situación? *</label>
+              <select id="per-situacion" name="situacion" required>
+                <option value="" disabled selected>Selecciona tu situación</option>
+                <option value="primera-declaracion">Primera declaración de renta</option>
+                <option value="segunda-categoria">Trabajador dependiente (2ª categoría)</option>
+                <option value="boletas">Emito boletas de honorarios</option>
+                <option value="inicio-actividades">Quiero iniciar actividades</option>
+                <option value="devolucion">Solicitar devolución de impuestos</option>
+                <option value="deudas-sii">Tengo deudas con el SII</option>
+                <option value="otro">Otra consulta</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="per-mensaje">Cuéntanos tu caso *</label>
+              <textarea id="per-mensaje" name="mensaje" rows="4" placeholder="Describe brevemente tu situación o consulta..." required />
+            </div>
+          </div>
+          <div class="form-footer">
+            <span class="form-note">* Campos obligatorios</span>
+            <button type="submit" class="btn-submit">
+              <span class="btn-text">Enviar consulta</span>
+              <span class="btn-loading hidden">Enviando...</span>
+            </button>
+          </div>
+          <div class="form-success hidden">
+            ✅ ¡Consulta enviada! Te contactaremos en menos de 24 horas.
+          </div>
+          <div class="form-error hidden">
+            ❌ Hubo un error al enviar. Intenta nuevamente o escríbenos por WhatsApp.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .contact-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* TABS */
+  .tab-buttons {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: transparent;
+    color: inherit;
+    opacity: 0.5;
+    border: none;
+  }
+  .tab-btn.active {
+    background: var(--color-primary);
+    color: var(--color-primary-content);
+    opacity: 1;
+  }
+
+  /* PANELS */
+  .tab-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .tab-panel.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* FORM */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .field.full {
+    grid-column: 1 / -1;
+  }
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    opacity: 0.85;
+  }
+  input, select, textarea {
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+    background: color-mix(in srgb, currentColor 6%, transparent);
+    color: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+  input.error, select.error, textarea.error {
+    border-color: #ef4444;
+  }
+  textarea { resize: vertical; }
+
+  .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .form-note {
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+  .btn-submit {
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    background: var(--color-primary);
+    color: var(--color-primary-content);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .form-success, .form-error {
+    margin-top: 1rem;
+    padding: 0.875rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .form-success { background: color-mix(in srgb, #16a34a 15%, transparent); }
+  .form-error   { background: color-mix(in srgb, #ef4444 15%, transparent); }
+  .hidden { display: none !important; }
+
+  @media (max-width: 580px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .field.full { grid-column: 1; }
+  }
+</style>
+
+<script>
+  // --- Tab switching ---
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tab = (btn as HTMLElement).dataset.tab!;
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(`tab-${tab}`)?.classList.add('active');
+    });
+  });
+
+  // --- Validación y submit ---
+  function validateForm(form: HTMLFormElement): boolean {
+    let valid = true;
+    form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+      'input[required], select[required], textarea[required]'
+    ).forEach((field) => {
+      field.classList.remove('error');
+      if (!field.value.trim()) {
+        field.classList.add('error');
+        valid = false;
+      }
+    });
+    return valid;
+  }
+
+  document.querySelectorAll<HTMLFormElement>('.contact-form').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateForm(form)) return;
+
+      const btn     = form.querySelector<HTMLButtonElement>('.btn-submit')!;
+      const btnText = form.querySelector('.btn-text')!;
+      const btnLoad = form.querySelector('.btn-loading')!;
+      const success = form.querySelector('.form-success')!;
+      const error   = form.querySelector('.form-error')!;
+
+      btn.disabled = true;
+      btnText.classList.add('hidden');
+      btnLoad.classList.remove('hidden');
+      success.classList.add('hidden');
+      error.classList.add('hidden');
+
+      const data = Object.fromEntries(new FormData(form));
+      data.formType = form.id === 'form-empresa' ? 'Empresa' : 'Persona Natural';
+
+      try {
+        // Por ahora simulamos el envío — aquí irá Resend
+        await new Promise(res => setTimeout(res, 1200));
+        console.log('Datos del formulario:', data);
+        success.classList.remove('hidden');
+        form.reset();
+      } catch {
+        error.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btnText.classList.remove('hidden');
+        btnLoad.classList.add('hidden');
+      }
+    });
+  });
+</script>

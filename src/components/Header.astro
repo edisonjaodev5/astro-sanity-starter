@@ -13,9 +13,9 @@ const { title, logo, navLinks, 'data-sb-field-path': fieldPath } = Astro.props;
 <nav class="p-4 sm:p-5" data-sb-field-path={fieldPath}>
     <div class="flex items-center justify-between w-full gap-6 mx-auto max-w-7xl">
         {
-            logo.src ? (
+            logo?.src ? (
                 <a class="flex items-center" href="/">
-                    <ResponsiveImage _id={logo._id} src={logo.src} width={logo.dimensions?.width} height={logo.dimensions?.height} alt={logo.alt} />
+                    <ResponsiveImage _id={logo._id} src={logo.src} width={logo.dimensions?.width} height={logo.dimensions?.height} alt={logo.alt} class="logo-img" />
                 </a>
             ) : (
                 <a class="text-xl font-bold sm:text-2xl" href="/" data-sb-field-path=".title">
@@ -116,6 +116,11 @@ const { title, logo, navLinks, 'data-sb-field-path': fieldPath } = Astro.props;
         top: 0;
         margin-top: -0.5625rem;
         transform: translateY(0.5rem) rotate(45deg);
+    }
+    .logo-img {
+        mix-blend-mode: multiply;
+        max-height: 48px;
+        width: auto;
     }
 </style>
 
