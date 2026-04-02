@@ -347,9 +347,15 @@ const { heading, body, ...rest } = Astro.props;
       data.formType = form.id === 'form-empresa' ? 'Empresa' : 'Persona Natural';
 
       try {
-        // Por ahora simulamos el envío — aquí irá Resend
-        await new Promise(res => setTimeout(res, 1200));
-        console.log('Datos del formulario:', data);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        if (!res.ok || !result.ok) throw new Error(result.error);
+
         success.classList.remove('hidden');
         form.reset();
       } catch {
